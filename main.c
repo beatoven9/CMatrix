@@ -1,12 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "matrix.h"
+
+void PrintHelpMenu();
 
 int main(int argc, char *argv[]){
     char c;
 
     char *input;
     size_t bufsize = 512;
+    int userInputLen;
 
     if ( (input = (char*) malloc(bufsize * sizeof(char))) == NULL){
         fprintf(stderr, "Unable to allocate memory for user input\n");
@@ -18,11 +22,16 @@ int main(int argc, char *argv[]){
     while(1){
         printf(">>> ");
         getline(&input, &bufsize, stdin);
+        userInputLen = strlen(input);
+        if (userInputLen > 2){
+            PrintHelpMenu();
+            continue;
+        }
         c = input[0];
 
         switch (c) {
             case 'h':
-                printf("Printing help message!\n");
+                PrintHelpMenu();
                 break;
             case 'n':
                 MatrixCreationPrompt();
@@ -42,6 +51,9 @@ int main(int argc, char *argv[]){
                 break;
             case 'm':
                 printf("Multiply matrices together\n");
+                break;
+            case 'i':
+                printf("Finding inverse matrix\n");
                 break;
             case 'q':
                 printf("Quitting\n");
@@ -88,4 +100,16 @@ int main(int argc, char *argv[]){
 //                break;
 //        }
 //    }
+
+void PrintHelpMenu(){
+    printf("\nHELP:\n \
+\tn: Create new matrix\n \
+\td: Delete matrix\n \
+\tp: Print matrix\n \
+\ta: Add matrices\n \
+\ts: Subtract matrices\n \
+\tm: Multiply matrices\n \
+\ti: Find inverse matrix\n \
+\tq: Quit\n\n");
+}
 

@@ -5,26 +5,39 @@
 
 void MatrixCreationPrompt(){
     char *label;
-    size_t bufsize = LABELMAXLEN;
-    char dimensions[DIMENSIONSMAXLEN];
-    char members[MEMBERSMAXLEN];
+    size_t labelbufsize = LABELMAXLEN;
+    char *dimensions;
+    size_t dimbufsize = DIMENSIONSMAXLEN;
+    char *members;
+    size_t membersbufsize = MEMBERSMAXLEN;
 
-    if (( label = (char*) malloc(bufsize * sizeof( char))) == NULL){
+    if (( label = (char*) malloc(labelbufsize * sizeof( char))) == NULL){
         fprintf(stderr, "Unable to allocate memory to create label\n");
     }
 
     printf("How would you like to label your new matrix? ");
-    getline(&label, &bufsize, stdin);
+    getline(&label, &labelbufsize, stdin);
 
-    printf("your label: %s\n", label);
-
+    if (( dimensions = (char*) malloc(dimbufsize * sizeof( char))) == NULL){
+        fprintf(stderr, "Unable to allocate memory to create dimensions\n");
+    }
     printf("What are the dimensions of your new matrix? enter in comma separated list( x,y )\n");
-    scanf("%s", dimensions);
+    getline(&dimensions, &dimbufsize, stdin);
 
+
+    if (( members = (char*) malloc(membersbufsize * sizeof( char))) == NULL){
+        fprintf(stderr, "Unable to allocate memory to create members input\n");
+    }
     printf("What are the members of your matrix?\n \
 \t-Enter the members separated by spaces.\n \
 \t-Separate each row with a semicolon (;)\n");
-    scanf("%s", members);
+    getline(&members, &membersbufsize, stdin);
+
+    //Here we'll use this input to create a matrix and put it in a list of saved matrices
+
+    free(label);
+    free(dimensions);
+    free(members);
     return;
 
 }

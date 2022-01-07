@@ -8,10 +8,15 @@ void PrintHelpMenu();
 
 int main(int argc, char *argv[]){
     char c;
+    int i;
 
     char *input;
     size_t bufsize = 512;
     int userInputLen;
+
+    Vector *v_array;
+    v_array = (Vector*) malloc(sizeof(Vector));
+    int v_arrayLength = 1;
 
     if ( (input = (char*) malloc(bufsize * sizeof(char))) == NULL){
         fprintf(stderr, "Unable to allocate memory for user input\n");
@@ -39,10 +44,19 @@ int main(int argc, char *argv[]){
                 printf("New matrix created!\n");
                 break;
             case 'v':
-                VectorUserPrompt();
+                VectorUserPrompt(&v_array[v_arrayLength - 1]);
+                v_arrayLength++;
+                v_array = (Vector*) realloc(v_array, (v_arrayLength) * sizeof(Vector));
                 printf("New vector created!\n");
                 break;
             case 'p':
+                //This should be fixed above
+                //I need a better way to mark the end of the array 
+                //          this is probably the best way, because then I would be able to use a while loop
+                // or find a way to only keep the length of the array, not one past the end
+                for (i = 0; i < v_arrayLength - 1; i++){
+                    printf("Vector of length: %d\n", v_array[i].length);
+                }
                 printf("Printing all matrices\n");
                 break;
             case 'd':

@@ -7,7 +7,7 @@
 //Maybe, the main function keeps an array of vectors and matrices.
 //then, when this function is called, the array gets passed to the function
 //and this function adds the new vector to the array.
-void VectorUserPrompt(){
+void VectorUserPrompt(Vector *newVector){
     char *lengthInput;
     size_t lenBufSize = LENMAXLEN;
 
@@ -40,7 +40,7 @@ void VectorUserPrompt(){
 
     ParseElementsInput(elementsArray, elementsInput);
 
-    CreateNewVector(vectorLength, elementsArray);
+    CreateNewVector(newVector, vectorLength, elementsArray);
     
     free(lengthInput);
     free(elementsInput);
@@ -91,6 +91,8 @@ int ParseLengthInput(char *lengthInput){
     }
 }
 
-Vector* CreateNewVector(int vectorLength, double *elementsArray){
-    return NULL;
+int CreateNewVector(Vector *newVector, int vectorLength, double *elementsArray){
+    newVector->length = vectorLength;
+    newVector->elements = (double*) malloc(vectorLength * sizeof(double));
+    return 0;
 }

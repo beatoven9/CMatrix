@@ -10,6 +10,7 @@ typedef struct Vector{
 
 Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result);
 void VectorUserPrompt();
+Vector* CreateNewVector(int vectorLength, double *elementsArray);
 
 double* ParseElementsInput(double *elementsArray, char *elementsInput);
 int ParseLengthInput(char *lengthInput);

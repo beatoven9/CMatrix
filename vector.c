@@ -16,6 +16,7 @@ void VectorUserPrompt(){
 
     int vectorLength;
     double *elementsArray;
+    elementsArray = (double*) malloc(sizeof(double));
 
     if ( (lengthInput = (char*) malloc(lenBufSize * sizeof(char))) == NULL){
         fprintf(stderr, "unable to allocate memory for lengthInput of Vector\n");
@@ -25,7 +26,9 @@ void VectorUserPrompt(){
     printf("What is the length of your new Vector?");
     getline(&lengthInput, &lenBufSize, stdin);
 
-    vectorLength = ParseLengthInput(lengthInput);
+    if ((vectorLength = ParseLengthInput(lengthInput)) == -1){
+        fprintf(stderr, "Error occured parsing lengthInput\n");
+    }
 
     if ( (elementsInput = (char*) malloc(elementsBufSize * sizeof(char))) == NULL){
         fprintf(stderr, "unable to allocate memory for elementsInput of Vector\n");
@@ -36,6 +39,8 @@ void VectorUserPrompt(){
     getline(&elementsInput, &elementsBufSize, stdin);
 
     ParseElementsInput(elementsArray, elementsInput);
+
+    CreateNewVector(vectorLength, elementsArray);
     
     free(lengthInput);
     free(elementsInput);
@@ -61,7 +66,6 @@ double* ParseElementsInput(double *elementsArray, char *elementsInput){
     int numElements = 1;
     char *currentElement;
 
-    elementsArray = (double*) malloc(sizeof(double));
     currentElement = strtok(elementsInput, " ");
     elementsArray[elementsIndex] = strtod(currentElement, NULL);
     
@@ -78,11 +82,15 @@ int ParseLengthInput(char *lengthInput){
     char *tail;
     int result;
     tail = (char*) malloc(LINEMAX * sizeof(char));
-    result = strtol(lengthInput,&tail, 10);
-    if (strcmp(tail, "\0") != 0){
+    result = strtol(lengthInput, &tail, 10);
+    if (tail[0] != '\0' ){
         fprintf(stderr, "Error parsing vector length!\n");
         return -1;
     } else {
         return result;
     }
+}
+
+Vector* CreateNewVector(int vectorLength, double *elementsArray){
+    return NULL;
 }

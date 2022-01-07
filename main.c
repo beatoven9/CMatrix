@@ -40,7 +40,7 @@ int main(int argc, char *argv[]){
                 break;
             case 'v':
                 VectorUserPrompt();
-                printf("New matrix created!\n");
+                printf("New vector created!\n");
                 break;
             case 'p':
                 printf("Printing all matrices\n");

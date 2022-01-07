@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "matrix.h"
+#include "vector.h"
 
 void PrintHelpMenu();
 
@@ -37,6 +38,10 @@ int main(int argc, char *argv[]){
                 MatrixCreationPrompt();
                 printf("New matrix created!\n");
                 break;
+            case 'v':
+                VectorUserPrompt();
+                printf("New matrix created!\n");
+                break;
             case 'p':
                 printf("Printing all matrices\n");
                 break;
@@ -69,41 +74,11 @@ int main(int argc, char *argv[]){
 
     return 0;
 }
-//    while((c = getchar()) != 'q'){
-//        switch (c) {
-//            case 'h':
-//                printf("Printing help message!\n");
-//                break;
-//            case 'n':
-//                MatrixCreationPrompt();
-//                printf("Making a new matrix!\n");
-//                break;
-//            case 'p':
-//                printf("Printing all matrices\n");
-//                break;
-//            case 'd':
-//                printf("Delete a matrix?\n");
-//                break;
-//            case 'a':
-//                printf("Adding matrices!\n");
-//                break;
-//            case 's':
-//                printf("Subtracting matrices\n");
-//                break;
-//            case 'm':
-//                printf("Multiply matrices together\n");
-//                break;
-//            case '\n':
-//                break;
-//            default:
-//                printf("Command not recognized!\n");
-//                break;
-//        }
-//    }
 
 void PrintHelpMenu(){
     printf("\nHELP:\n \
 \tn: Create new matrix\n \
+\tv: Create new vector\n \
 \td: Delete matrix\n \
 \tp: Print matrix\n \
 \ta: Add matrices\n \

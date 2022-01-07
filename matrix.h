@@ -17,8 +17,10 @@ typedef struct Matrix {
     int **members;
 } Matrix;
 
-Matrix* CreateNewMatrix(MatrixDimensions dimensions, char label[LABELMAXLEN]);
+Matrix* CreateNewMatrix(Matrix *newMatrix, MatrixDimensions dimensions, char label[LABELMAXLEN]);
 
 Matrix* alloc_matrix_mem(Matrix *matrix);
+
+MatrixDimensions* ParseDimensionsInput(MatrixDimensions *m_dimensions, char *dimensionsInput);
 
 void MatrixCreationPrompt();

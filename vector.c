@@ -78,17 +78,19 @@ double* ParseElementsInput(double *elementsArray, char *elementsInput){
     return elementsArray;
 }
 
+//This isn't error handling user error yet
 int ParseLengthInput(char *lengthInput){
     char *tail;
     int result;
     tail = (char*) malloc(LINEMAX * sizeof(char));
     result = strtol(lengthInput, &tail, 10);
-    if (tail[0] != '\0' ){
-        fprintf(stderr, "Error parsing vector length!\n");
-        return -1;
-    } else {
-        return result;
-    }
+    //if (strcmp(tail, "") != 0){
+    //    fprintf(stderr, "Error parsing vector length!\n");
+    //    return -1;
+    //} else {
+    //    return result;
+    //}
+    return result;
 }
 
 int CreateNewVector(Vector *newVector, int vectorLength, double *elementsArray){

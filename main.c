@@ -55,9 +55,13 @@ int main(int argc, char *argv[]){
                 //          this is probably the best way, because then I would be able to use a while loop
                 // or find a way to only keep the length of the array, not one past the end
                 for (i = 0; i < v_arrayLength - 1; i++){
-                    printf("Vector of length: %d\n", v_array[i].length);
+                    printf("Vector: %s\n", v_array[i].label);
+                    printf("\tVector of length: %d\n", v_array[i].length);
+                    printf("\tElements in array: \n");
+                    for (int j = 0; j < v_array[i].length; j++){
+                        printf("\t\telement %i: %f\n", j, v_array[i].elements[j]);
+                    }
                 }
-                printf("Printing all matrices\n");
                 break;
             case 'd':
                 printf("Delete a matrix?\n");

@@ -3,11 +3,10 @@
 #include <string.h>
 #include "vector.h"
 
-//This might have to be different
-//Maybe, the main function keeps an array of vectors and matrices.
-//then, when this function is called, the array gets passed to the function
-//and this function adds the new vector to the array.
 void VectorUserPrompt(Vector *newVector){
+    char *labelInput;
+    size_t labelBufSize = VECLABELMAXLEN;
+
     char *lengthInput;
     size_t lenBufSize = LENMAXLEN;
 
@@ -17,6 +16,14 @@ void VectorUserPrompt(Vector *newVector){
     int vectorLength;
     double *elementsArray;
     elementsArray = (double*) malloc(sizeof(double));
+
+    if ( (labelInput = (char*) malloc(labelBufSize * sizeof(char))) == NULL){
+        fprintf(stderr, "unable to allocate memory for labelInput of Vector\n");
+        return ;
+    }
+
+    printf("What is the label of your new Vector?");
+    getline(&labelInput, &labelBufSize, stdin);
 
     if ( (lengthInput = (char*) malloc(lenBufSize * sizeof(char))) == NULL){
         fprintf(stderr, "unable to allocate memory for lengthInput of Vector\n");
@@ -38,9 +45,12 @@ void VectorUserPrompt(Vector *newVector){
     printf("Enter the elements of your vector in a space separated list.\n");
     getline(&elementsInput, &elementsBufSize, stdin);
 
-    ParseElementsInput(elementsArray, elementsInput);
+    //I'm not totally clear on why I need to set this
+    //I think that it should be enough that I'm setting it inside of the function
+    //since I pass it as a pointer. I'm clearly misunderstanding something
+    elementsArray = ParseElementsInput(elementsArray, elementsInput);
 
-    CreateNewVector(newVector, vectorLength, elementsArray);
+    CreateNewVector(newVector, labelInput, vectorLength, elementsArray);
     
     free(lengthInput);
     free(elementsInput);
@@ -75,6 +85,8 @@ double* ParseElementsInput(double *elementsArray, char *elementsInput){
         elementsArray = realloc(elementsArray, numElements * sizeof(double));
         elementsArray[elementsIndex] = strtod(currentElement, NULL);
     } 
+
+
     return elementsArray;
 }
 
@@ -93,8 +105,16 @@ int ParseLengthInput(char *lengthInput){
     return result;
 }
 
-int CreateNewVector(Vector *newVector, int vectorLength, double *elementsArray){
+int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, double *elementsArray){
+    int i;
+
+    newVector->label = (char*) malloc(VECLABELMAXLEN * sizeof(char));
+    strncpy(newVector->label, labelInput, VECLABELMAXLEN - 1);
     newVector->length = vectorLength;
     newVector->elements = (double*) malloc(vectorLength * sizeof(double));
+
+    for (i = 0; i < vectorLength; i++){
+        newVector->elements[i] = elementsArray[i];
+    }
     return 0;
 }

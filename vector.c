@@ -112,9 +112,70 @@ int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, doubl
     strncpy(newVector->label, labelInput, VECLABELMAXLEN - 1);
     newVector->length = vectorLength;
     newVector->elements = (double*) malloc(vectorLength * sizeof(double));
+    newVector->largestElement = 0;
 
     for (i = 0; i < vectorLength; i++){
         newVector->elements[i] = elementsArray[i];
+        if (newVector->largestElement < elementsArray[i]){
+            newVector->largestElement = elementsArray[i];
+        }
     }
     return 0;
+}
+
+int DigitCount(double num, int precision){
+    int divisor = 10;
+    int digitCount = 1;
+
+    while(((int) num / divisor)){
+        digitCount++;
+        divisor *= 10;
+    }
+    return digitCount;
+}
+
+void PrintVector(Vector *vector){
+    int i, j; 
+    int precision = 2;
+    int numOfSpaces;
+    int largestElementDecimalPlaces = 1;
+    int currentElementDecimanlPlaces = 1;
+    //int divisor;
+
+    largestElementDecimalPlaces = DigitCount(vector->largestElement, precision);
+
+    numOfSpaces = largestElementDecimalPlaces + precision + 1; // + 1 is for the decimal point
+
+    printf("numOfSpaces is : %i\n", numOfSpaces);
+
+    printf("Vector: %s\n", vector->label);
+    printf("\t*-");
+    for (i = 0; i < numOfSpaces; i++){
+        printf(" ");
+    }
+    printf("-*\n");
+    for (i = 0; i < vector->length; i++){
+        printf("\t| %.*f", precision, vector->elements[i]);
+
+        currentElementDecimanlPlaces = DigitCount(vector->elements[i], precision);
+
+//        divisor = 10;
+//        currentElementDecimanlPlaces = 1;
+//        while(((int) vector->elements[i] / divisor)){
+//            currentElementDecimanlPlaces++;
+//            divisor *= 10;
+//        }
+        int spaces = largestElementDecimalPlaces - currentElementDecimanlPlaces;
+
+        for (j = 0; j < spaces; j++){
+            printf(" ");
+        }
+        printf(" |\n");
+    }
+    printf("\t*-");
+    for (i = 0; i < numOfSpaces; i++){
+        printf(" ");
+    }
+    printf("-*\n");
+    printf("\n");
 }

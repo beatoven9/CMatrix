@@ -8,6 +8,7 @@ typedef struct Vector{
     char* label;
     int length;
     double *elements;
+    double largestElement;
 } Vector;
 
 Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result);
@@ -16,3 +17,7 @@ int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, doubl
 
 double* ParseElementsInput(double *elementsArray, char *elementsInput);
 int ParseLengthInput(char *lengthInput);
+
+int DigitCount(double num, int precision);
+
+void PrintVector(Vector *vector);

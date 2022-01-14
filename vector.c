@@ -59,11 +59,17 @@ void VectorUserPrompt(Vector *newVector){
 
 Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result){
     int i;
+    printf("Adding vectors %s and %s together...\n", vectorA.label, vectorB.label);
 
     if (vectorA.length == vectorB.length){
+        result->elements = (double *) malloc(vectorA.length * sizeof(double));
         for (i = 0; i < vectorA.length; i++){
             result->elements[i] = vectorA.elements[i] + vectorB.elements[i];
         }
+        result->label = (char*) malloc( LINEMAX * (sizeof(char)));
+        strncpy(result->label, "Sum of two vectors", LINEMAX);
+        result->length = vectorA.length;
+        printf("Successfully added the two\n");
         return result;
     }else{
         fprintf(stderr, "Attempting to add two vectors of unequal length\n");
@@ -145,8 +151,6 @@ void PrintVector(Vector *vector){
     largestElementDecimalPlaces = DigitCount(vector->largestElement, precision);
 
     numOfSpaces = largestElementDecimalPlaces + precision + 1; // + 1 is for the decimal point
-
-    printf("numOfSpaces is : %i\n", numOfSpaces);
 
     printf("Vector: %s\n", vector->label);
     printf("\t*-");

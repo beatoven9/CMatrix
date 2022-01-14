@@ -63,6 +63,12 @@ int main(int argc, char *argv[]){
                 break;
             case 'a':
                 printf("Adding matrices!\n");
+                Vector *sum = (Vector* ) malloc(sizeof(Vector));
+                sum = AddVectors(v_array[v_arrayLength - 3], v_array[v_arrayLength - 2], sum);
+                if (sum != NULL){
+                    printf("about to print new vector");
+                    PrintVector(sum);
+                }
                 break;
             case 's':
                 printf("Subtracting matrices\n");

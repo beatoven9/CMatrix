@@ -11,8 +11,8 @@ typedef struct Vector{
     double largestElement;
 } Vector;
 
-Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result);
-double* DotProductVectors(Vector vectorA, Vector vectorB, double *result);
+Vector* AddVectors(Vector *vectorA, Vector *vectorB, Vector *result);
+double* DotProductVectors(Vector *vectorA, Vector *vectorB, double *result);
 void VectorUserPrompt(Vector *newVector);
 int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, double *elementsArray);
 

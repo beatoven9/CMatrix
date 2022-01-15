@@ -57,17 +57,17 @@ void VectorUserPrompt(Vector *newVector){
 
 }
 
-Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result){
+Vector* AddVectors(Vector *vectorA, Vector *vectorB, Vector *result){
     int i;
 
-    if (vectorA.length == vectorB.length){
-        result->elements = (double *) malloc(vectorA.length * sizeof(double));
-        for (i = 0; i < vectorA.length; i++){
-            result->elements[i] = vectorA.elements[i] + vectorB.elements[i];
+    if (vectorA->length == vectorB->length){
+        result->elements = (double *) malloc(vectorA->length * sizeof(double));
+        for (i = 0; i < vectorA->length; i++){
+            result->elements[i] = vectorA->elements[i] + vectorB->elements[i];
         }
         result->label = (char*) malloc( LINEMAX * (sizeof(char)));
         strncpy(result->label, "Sum of two vectors", LINEMAX);
-        result->length = vectorA.length;
+        result->length = vectorA->length;
         printf("Successfully added the two\n");
         return result;
     }else{
@@ -76,14 +76,14 @@ Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result){
     }
 }
 
-double* DotProductVectors(Vector vectorA, Vector vectorB, double *result){
+double* DotProductVectors(Vector *vectorA, Vector *vectorB, double *result){
     int i;
     *result = 0;
 
-    printf("about to get dot product of %s and %s\n", vectorA.label, vectorB.label);
-    if (vectorA.length == vectorB.length){
-        for (i = 0; i < vectorA.length; i++){
-            *result += vectorA.elements[i] * vectorB.elements[i];
+    printf("about to get dot product of %s and %s\n", vectorA->label, vectorB->label);
+    if (vectorA->length == vectorB->length){
+        for (i = 0; i < vectorA->length; i++){
+            *result += vectorA->elements[i] * vectorB->elements[i];
         }
         printf("Successfully multiplied the two\n");
         return result;
@@ -130,15 +130,18 @@ int ParseLengthInput(char *lengthInput){
 int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, double *elementsArray){
     int i;
 
-    printf("making vector %s, of length %i\n", labelInput, vectorLength);
     newVector->label = (char*) malloc(VECLABELMAXLEN * sizeof(char));
     if (newVector->label == NULL){
         fprintf(stderr, "Unable to allocate memory for newVector->label\n");
+        return -1;
     }
-    printf("Got here\n");
     strncpy(newVector->label, labelInput, VECLABELMAXLEN - 1);
     newVector->length = vectorLength;
     newVector->elements = (double*) malloc(vectorLength * sizeof(double));
+    if (newVector->elements == NULL){
+        fprintf(stderr, "unable to locate memory for newVector->elementsArray\n");
+        return -1;
+    }
     newVector->largestElement = 0;
 
     for (i = 0; i < vectorLength; i++){

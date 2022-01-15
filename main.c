@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
 
     Vector *v_array;
     v_array = (Vector*) malloc(sizeof(Vector));
+    int currentIndex = 0;
     int v_arrayLength = 1;
 
     if ( (input = (char*) malloc(bufsize * sizeof(char))) == NULL){
@@ -44,9 +45,10 @@ int main(int argc, char *argv[]){
                 printf("New matrix created!\n");
                 break;
             case 'v':
-                VectorUserPrompt(&v_array[v_arrayLength - 1]);
+                VectorUserPrompt(&v_array[currentIndex]);
                 v_arrayLength++;
-                v_array = (Vector*) realloc(v_array, (v_arrayLength) * sizeof(Vector));
+                currentIndex++;
+                v_array = (Vector*) realloc(v_array, (currentIndex + 1) * sizeof(Vector));
                 printf("New vector created!\n");
                 break;
             case 'p':

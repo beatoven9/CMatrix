@@ -130,13 +130,19 @@ int ParseLengthInput(char *lengthInput){
 int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, double *elementsArray){
     int i;
 
+    printf("making vector %s, of length %i\n", labelInput, vectorLength);
     newVector->label = (char*) malloc(VECLABELMAXLEN * sizeof(char));
+    if (newVector->label == NULL){
+        fprintf(stderr, "Unable to allocate memory for newVector->label\n");
+    }
+    printf("Got here\n");
     strncpy(newVector->label, labelInput, VECLABELMAXLEN - 1);
     newVector->length = vectorLength;
     newVector->elements = (double*) malloc(vectorLength * sizeof(double));
     newVector->largestElement = 0;
 
     for (i = 0; i < vectorLength; i++){
+        printf("Adding element %f to array\n", elementsArray[i]);
         newVector->elements[i] = elementsArray[i];
         if (newVector->largestElement < elementsArray[i]){
             newVector->largestElement = elementsArray[i];

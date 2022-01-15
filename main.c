@@ -52,8 +52,10 @@ int main(int argc, char *argv[]){
             case 'p':
                 //This should be fixed above
                 //I need a better way to mark the end of the array 
-                //          this is probably the best way, because then I would be able to use a while loop
+                //A NULL value is probably the best way, because then I would be able to use a while loop
                 // or find a way to only keep the length of the array, not one past the end
+                // Maybe I can have it be an array of pointers instead of an array of vectors
+
                 for (i = 0; i < v_arrayLength - 1; i++){
                     PrintVector(&v_array[i]);
                 }
@@ -75,6 +77,10 @@ int main(int argc, char *argv[]){
                 break;
             case 'm':
                 printf("Multiply matrices together\n");
+                double *result;
+                result = (double*) malloc(sizeof(double));
+                result = DotProductVectors(v_array[v_arrayLength - 3], v_array[v_arrayLength - 2], result);
+                printf("Dot product is: %f\n", *result);
                 break;
             case 'i':
                 printf("Finding inverse matrix\n");

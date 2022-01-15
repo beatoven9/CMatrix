@@ -59,7 +59,6 @@ void VectorUserPrompt(Vector *newVector){
 
 Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result){
     int i;
-    printf("Adding vectors %s and %s together...\n", vectorA.label, vectorB.label);
 
     if (vectorA.length == vectorB.length){
         result->elements = (double *) malloc(vectorA.length * sizeof(double));
@@ -70,6 +69,23 @@ Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result){
         strncpy(result->label, "Sum of two vectors", LINEMAX);
         result->length = vectorA.length;
         printf("Successfully added the two\n");
+        return result;
+    }else{
+        fprintf(stderr, "Attempting to add two vectors of unequal length\n");
+        return NULL;
+    }
+}
+
+double* DotProductVectors(Vector vectorA, Vector vectorB, double *result){
+    int i;
+    *result = 0;
+
+    printf("about to get dot product of %s and %s\n", vectorA.label, vectorB.label);
+    if (vectorA.length == vectorB.length){
+        for (i = 0; i < vectorA.length; i++){
+            *result += vectorA.elements[i] * vectorB.elements[i];
+        }
+        printf("Successfully multiplied the two\n");
         return result;
     }else{
         fprintf(stderr, "Attempting to add two vectors of unequal length\n");

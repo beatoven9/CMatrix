@@ -11,12 +11,14 @@ typedef struct Vector{
     double largestElement;
 } Vector;
 
-Vector* AddVectors(Vector vectorA, Vector vectorB, Vector *result);
+Vector* AddVectors(Vector *vectorA, Vector *vectorB, Vector *result);
+double* DotProductVectors(Vector *vectorA, Vector *vectorB, double *result);
 void VectorUserPrompt(Vector *newVector);
 int CreateNewVector(Vector *newVector, char* labelInput, int vectorLength, double *elementsArray);
 
 double* ParseElementsInput(double *elementsArray, char *elementsInput);
 int ParseLengthInput(char *lengthInput);
+
 
 int DigitCount(double num, int precision);
 

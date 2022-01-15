@@ -14,8 +14,9 @@ int main(int argc, char *argv[]){
     size_t bufsize = 512;
     int userInputLen;
 
-    Vector *v_array;
-    v_array = (Vector*) malloc(sizeof(Vector));
+    Vector **v_array;
+    v_array = (Vector**) malloc(sizeof(Vector*));
+    int currentIndex = 0;
     int v_arrayLength = 1;
 
     if ( (input = (char*) malloc(bufsize * sizeof(char))) == NULL){
@@ -44,18 +45,23 @@ int main(int argc, char *argv[]){
                 printf("New matrix created!\n");
                 break;
             case 'v':
-                VectorUserPrompt(&v_array[v_arrayLength - 1]);
+                v_array[currentIndex] = (Vector*) malloc(sizeof(Vector));
+                VectorUserPrompt(v_array[currentIndex]);
                 v_arrayLength++;
-                v_array = (Vector*) realloc(v_array, (v_arrayLength) * sizeof(Vector));
+                currentIndex++;
+                v_array = (Vector**) realloc(v_array, (currentIndex + 1) * sizeof(Vector*));
+                v_array[currentIndex + 1] = NULL;
                 printf("New vector created!\n");
                 break;
             case 'p':
                 //This should be fixed above
                 //I need a better way to mark the end of the array 
-                //          this is probably the best way, because then I would be able to use a while loop
+                //A NULL value is probably the best way, because then I would be able to use a while loop
                 // or find a way to only keep the length of the array, not one past the end
+                // Maybe I can have it be an array of pointers instead of an array of vectors
+
                 for (i = 0; i < v_arrayLength - 1; i++){
-                    PrintVector(&v_array[i]);
+                    PrintVector(v_array[i]);
                 }
                 break;
             case 'd':
@@ -64,7 +70,7 @@ int main(int argc, char *argv[]){
             case 'a':
                 printf("Adding matrices!\n");
                 Vector *sum = (Vector* ) malloc(sizeof(Vector));
-                sum = AddVectors(v_array[v_arrayLength - 3], v_array[v_arrayLength - 2], sum);
+                sum = AddVectors(v_array[currentIndex - 1], v_array[currentIndex - 2], sum);
                 if (sum != NULL){
                     printf("about to print new vector");
                     PrintVector(sum);
@@ -75,6 +81,10 @@ int main(int argc, char *argv[]){
                 break;
             case 'm':
                 printf("Multiply matrices together\n");
+                double *result;
+                result = (double*) malloc(sizeof(double));
+                result = DotProductVectors(v_array[currentIndex - 1], v_array[currentIndex - 2], result);
+                printf("Dot product is: %f\n", *result);
                 break;
             case 'i':
                 printf("Finding inverse matrix\n");

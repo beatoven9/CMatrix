@@ -38,13 +38,19 @@ int main(int argc, char *argv[]){
 
         switch (c) {
             case 'h':
+            {
                 PrintHelpMenu();
                 break;
+
+            }
             case 'n':
+            {
                 MatrixCreationPrompt();
                 printf("New matrix created!\n");
                 break;
+            }
             case 'v':
+            {
                 v_array[currentIndex] = (Vector*) malloc(sizeof(Vector));
                 VectorUserPrompt(v_array[currentIndex]);
                 v_arrayLength++;
@@ -53,7 +59,9 @@ int main(int argc, char *argv[]){
                 v_array[currentIndex + 1] = NULL;
                 printf("New vector created!\n");
                 break;
+            }
             case 'p':
+            {
                 //This should be fixed above
                 //I need a better way to mark the end of the array 
                 //A NULL value is probably the best way, because then I would be able to use a while loop
@@ -64,40 +72,53 @@ int main(int argc, char *argv[]){
                     PrintVector(v_array[i]);
                 }
                 break;
+            }
             case 'd':
-                printf("Delete a matrix?\n");
+            {
+                printf("Delete a matrix not yet implemented\n");
                 break;
+            }
             case 'a':
-                printf("Adding matrices!\n");
+            {
                 Vector *sum = (Vector* ) malloc(sizeof(Vector));
                 sum = AddVectors(v_array[currentIndex - 1], v_array[currentIndex - 2], sum);
                 if (sum != NULL){
-                    printf("about to print new vector");
                     PrintVector(sum);
                 }
                 break;
+            }
             case 's':
-                printf("Subtracting matrices\n");
+            {
+                printf("Subtracting matrices not yet implemented\n");
                 break;
+            }
             case 'm':
-                printf("Multiply matrices together\n");
+            {
                 double *result;
                 result = (double*) malloc(sizeof(double));
                 result = DotProductVectors(v_array[currentIndex - 1], v_array[currentIndex - 2], result);
                 printf("Dot product is: %f\n", *result);
                 break;
+            }
             case 'i':
-                printf("Finding inverse matrix\n");
+            {
+                printf("Finding inverse matrix not yet implemented\n");
                 break;
+            }
             case 'q':
-                printf("Quitting\n");
+            {
                 return 0;
                 break;
+            }
             case '\n':
+            {
                 break;
+            }
             default:
+            {
                 printf("Command not recognized!\n");
                 break;
+            }
         }
     }
 

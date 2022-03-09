@@ -22,7 +22,7 @@ void VectorUserPrompt(Vector *newVector){
         return ;
     }
 
-    printf("What is the label of your new Vector?");
+    printf("What is the label of your new Vector? ");
     getline(&labelInput, &labelBufSize, stdin);
 
     if ( (lengthInput = (char*) malloc(lenBufSize * sizeof(char))) == NULL){
@@ -30,7 +30,7 @@ void VectorUserPrompt(Vector *newVector){
         return ;
     }
 
-    printf("What is the length of your new Vector?");
+    printf("What is the length of your new Vector? ");
     getline(&lengthInput, &lenBufSize, stdin);
 
     if ((vectorLength = ParseLengthInput(lengthInput)) == -1){
@@ -68,7 +68,6 @@ Vector* AddVectors(Vector *vectorA, Vector *vectorB, Vector *result){
         result->label = (char*) malloc( LINEMAX * (sizeof(char)));
         strncpy(result->label, "Sum of two vectors", LINEMAX);
         result->length = vectorA->length;
-        printf("Successfully added the two\n");
         return result;
     }else{
         fprintf(stderr, "Attempting to add two vectors of unequal length\n");

@@ -1,5 +1,7 @@
-cmatrix : main.o matrix.o vector.o
-	cc -o cmatrix main.o matrix.o vector.o
+objects = main.o matrix.o vector.o
+
+cmatrix : $(objects)
+	cc -o cmatrix $(objects)
 
 main.o : main.c
 	cc -c main.c
@@ -11,4 +13,4 @@ matrix.o : matrix.c matrix.h
 	cc -c matrix.c
 
 clean:
-	rm cmatrix main.o matrix.o vector.o
+	rm cmatrix $(objects)
